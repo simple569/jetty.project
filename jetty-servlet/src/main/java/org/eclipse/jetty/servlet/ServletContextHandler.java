@@ -273,7 +273,7 @@ public class ServletContextHandler extends ContextHandler
 
             if (handler.getHandler() != _securityHandler)
                 doSetHandler(handler, _securityHandler);
-            handler = _securityHandler;
+            handler = _securityHandler;//层层装饰
         }
 
         // link servlet handler

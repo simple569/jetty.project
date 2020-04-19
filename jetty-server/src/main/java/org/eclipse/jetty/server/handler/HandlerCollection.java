@@ -44,7 +44,7 @@ import org.eclipse.jetty.util.annotation.ManagedObject;
  */
 @ManagedObject("Handler of multiple handlers")
 public class HandlerCollection extends AbstractHandlerContainer
-{
+{   /**在运行时修改*/
     private final boolean _mutableWhenRunning;
     protected final AtomicReference<Handlers> _handlers = new AtomicReference<>();
 
@@ -90,7 +90,7 @@ public class HandlerCollection extends AbstractHandlerContainer
                 break;
         }
     }
-
+    /***/
     protected Handlers newHandlers(Handler[] handlers)
     {
         if (handlers == null || handlers.length == 0)
@@ -234,7 +234,7 @@ public class HandlerCollection extends AbstractHandlerContainer
         }
         super.destroy();
     }
-
+    /**handler数组*/
     protected static class Handlers
     {
         private final Handler[] _handlers;

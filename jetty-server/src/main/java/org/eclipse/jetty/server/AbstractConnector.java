@@ -147,8 +147,8 @@ public abstract class AbstractConnector extends ContainerLifeCycle implements Co
     private final Condition _setAccepting = _lock.newCondition();
     private final Map<String, ConnectionFactory> _factories = new LinkedHashMap<>(); // Order is important on server side, so we use a LinkedHashMap
     private final Server _server;
-    private final Executor _executor;
-    private final Scheduler _scheduler;
+    private final Executor _executor;// 运行该Connector所需的task,例如接收连接
+    private final Scheduler _scheduler;//monitor the idle timeouts of all connections 、对connections计时处理例如异步请求超时
     private final ByteBufferPool _byteBufferPool;
     private final Thread[] _acceptors;
     private final Set<EndPoint> _endpoints = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -507,7 +507,7 @@ public abstract class AbstractConnector extends ContainerLifeCycle implements Co
         // add new Bean
         addBean(factory);
         if (_defaultProtocol == null)
-            _defaultProtocol = factory.getProtocol();
+            _defaultProtocol = factory.getProtocol();//设置为第一个ConnectionFactory的协议
         if (LOG.isDebugEnabled())
             LOG.debug("{} added {}", this, factory);
     }
@@ -697,7 +697,7 @@ public abstract class AbstractConnector extends ContainerLifeCycle implements Co
             if (_acceptorPriorityDelta != 0)
                 thread.setPriority(Math.max(Thread.MIN_PRIORITY, Math.min(Thread.MAX_PRIORITY, priority + _acceptorPriorityDelta)));
 
-            _acceptors[_id] = thread;
+            _acceptors[_id] = thread;//设置运行的线程
 
             try
             {

@@ -30,7 +30,7 @@ public class RawArgs implements Iterable<Entry>
     public class Entry
     {
         private String line;
-        private String origin;
+        private String origin;//来源 例如ORIGIN_CMD_LINE
 
         private Entry(String line, String origin)
         {

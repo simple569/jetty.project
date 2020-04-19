@@ -17,7 +17,7 @@
 //
 
 package org.eclipse.jetty.xml;
-
+/**类似Spring namespacehandle 针对特定的tag和dtd创建ConfigurationProcessor*/
 public interface ConfigurationProcessorFactory
 {
     ConfigurationProcessor getConfigurationProcessor(String dtd, String tag);

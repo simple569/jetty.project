@@ -212,7 +212,7 @@ public class StartArgs
     private boolean licenseCheckRequired = false;
     private boolean testingMode = false;
 
-    private boolean help = false;
+    private boolean help = false;// --help选项或者 --?
     private boolean stopCommand = false;
     private List<String> listModules = null;
     private boolean listClasspath = false;
@@ -1019,7 +1019,7 @@ public class StartArgs
         }
     }
 
-    /**
+    /**    <p>解析一行参数</p>
      * Parse a single line of argument.
      *
      * @param rawarg the raw argument to parse
@@ -1307,7 +1307,7 @@ public class StartArgs
         }
 
         // Is this an xml file?
-        if (FS.isXml(arg))
+        if (FS.isXml(arg))//        如果直接是xml文件
         {
             // only add non-duplicates
             if (!xmlRefs.contains(arg))

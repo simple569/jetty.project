@@ -272,7 +272,7 @@ public class XmlConfiguration
 
     private void setConfig(XmlParser.Node config)
     {
-        if ("Configure".equals(config.getTag()))
+        if ("Configure".equals(config.getTag()))//如果是Configure节点
         {
             _processor = new JettyXmlConfiguration();
         }
@@ -445,7 +445,7 @@ public class XmlConfiguration
             return Loader.loadClass(className);
         }
 
-        /**
+        /**    <p>递归调用,obj是被配置的当前对象</p>
          * Recursive configuration routine.
          * This method applies the nested Set, Put, Call, etc. elements to the given object.
          *
@@ -459,7 +459,7 @@ public class XmlConfiguration
             // Process real arguments
             for (; i < cfg.size(); i++)
             {
-                Object o = cfg.get(i);
+                Object o = cfg.get(i);//i xml节点编号
                 if (o instanceof String)
                     continue;
                 XmlParser.Node node = (XmlParser.Node)o;
@@ -1811,7 +1811,7 @@ public class XmlConfiguration
                 List<Object> objects = new ArrayList<>(args.length);
                 for (String arg : args)
                 {
-                    if (!arg.toLowerCase(Locale.ENGLISH).endsWith(".properties") && (arg.indexOf('=') < 0))
+                    if (!arg.toLowerCase(Locale.ENGLISH).endsWith(".properties") && (arg.indexOf('=') < 0))//xml文件参数
                     {
                         XmlConfiguration configuration = new XmlConfiguration(Resource.newResource(arg));
                         if (last != null)

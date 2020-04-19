@@ -100,7 +100,7 @@ public class ArrayUtil
         }
     }
 
-    /**
+    /**  <p>将item 添加到array数组的首元素</p>
      * Add element to the start of an array
      *
      * @param array The array to add to (or null)

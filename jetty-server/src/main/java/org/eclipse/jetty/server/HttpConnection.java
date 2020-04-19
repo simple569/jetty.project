@@ -131,7 +131,7 @@ public class HttpConnection extends AbstractConnection implements Runnable, Http
     {
         return new HttpChannelOverHttp(this, _connector, _config, getEndPoint(), this);
     }
-
+    /***/
     protected HttpParser newHttpParser(HttpCompliance compliance)
     {
         HttpParser parser = new HttpParser(newRequestHandler(), getHttpConfiguration().getRequestHeaderSize(), compliance);

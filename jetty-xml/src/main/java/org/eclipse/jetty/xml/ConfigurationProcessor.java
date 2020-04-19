@@ -30,7 +30,7 @@ import org.eclipse.jetty.util.resource.Resource;
  */
 public interface ConfigurationProcessor
 {
-    /**
+    /**    <p>使用给定xml初始化ConfigurationProcessor</p>
      * Initialize a ConfigurationProcessor from provided Resource and XML
      *
      * @param resource the resource being read

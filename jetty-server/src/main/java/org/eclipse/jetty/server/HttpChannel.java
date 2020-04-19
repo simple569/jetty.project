@@ -372,7 +372,7 @@ public class HttpChannel implements Runnable, HttpOutput.Interceptor
                                 if (_request.isHandled())
                                     return;
                             }
-                            getServer().handle(HttpChannel.this);
+                            getServer().handle(HttpChannel.this);//处理请求
                         });
 
                         break;

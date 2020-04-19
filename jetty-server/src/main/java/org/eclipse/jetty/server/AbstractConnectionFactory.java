@@ -115,7 +115,7 @@ public abstract class AbstractConnectionFactory extends ContainerLifeCycle imple
     {
         return String.format("%s@%x%s", this.getClass().getSimpleName(), hashCode(), getProtocols());
     }
-
+    /**获取*/
     public static ConnectionFactory[] getFactories(SslContextFactory.Server sslContextFactory, ConnectionFactory... factories)
     {
         factories = ArrayUtil.removeNulls(factories);

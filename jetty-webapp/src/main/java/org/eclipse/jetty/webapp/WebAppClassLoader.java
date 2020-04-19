@@ -88,7 +88,7 @@ public class WebAppClassLoader extends URLClassLoader implements ClassVisibility
     public interface Context extends ClassVisibilityChecker
     {
 
-        /**
+        /**     <p>将URL或者path转为Resource</p>
          * Convert a URL or path to a Resource.
          * The default implementation
          * is a wrapper for {@link Resource#newResource(String)}.
@@ -162,7 +162,7 @@ public class WebAppClassLoader extends URLClassLoader implements ClassVisibility
     /**
      * Constructor.
      *
-     * @param parent the parent classloader
+     * @param parent the parent classloader  父类加载器
      * @param context the context for this classloader
      * @throws IOException if unable to initialize classloader
      */
@@ -301,7 +301,7 @@ public class WebAppClassLoader extends URLClassLoader implements ClassVisibility
         }
     }
 
-    /**
+    /**   <p>指定类型文件可以被添加到class path</p>
      * @param file Checks if this file type can be added to the classpath.
      */
     private boolean isFileSupported(String file)
@@ -481,7 +481,7 @@ public class WebAppClassLoader extends URLClassLoader implements ClassVisibility
             }
 
             // Should we try the parent loader first?
-            if (_context.isParentLoaderPriority())
+            if (_context.isParentLoaderPriority())//加载父类优先
             {
                 // Try the parent loader
                 try
@@ -529,7 +529,7 @@ public class WebAppClassLoader extends URLClassLoader implements ClassVisibility
 
                 throw ex;
             }
-            else
+            else//先不委托给父类加载
             {
                 // Not parent loader priority, so...
                 webappClass = loadAsResource(name, true);

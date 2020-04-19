@@ -43,7 +43,7 @@ import org.eclipse.jetty.io.EndPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**    <p>在HTTP/1 protocol上传输,可以被自定义的HttpChannel</p>
  * An HttpChannel customized to be transported over the HTTP/1 protocol
  */
 public class HttpChannelOverHttp extends HttpChannel implements HttpParser.RequestHandler, ComplianceViolation.Listener

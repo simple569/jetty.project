@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.eclipse.jetty.http.HttpStatus.INTERNAL_SERVER_ERROR_500;
 
-/**
+/**    <p>构建http message</p>
  * HttpGenerator. Builds HTTP Messages.
  * <p>
  * If the system property "org.eclipse.jetty.http.HttpGenerator.STRICT" is set to true,

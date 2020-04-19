@@ -130,7 +130,7 @@ public class HttpChannelState
      */
     public enum Action
     {
-        DISPATCH,         // handle a normal request dispatch
+        DISPATCH,         // handle a normal request dispatch   正常处理请求
         ASYNC_DISPATCH,   // handle an async request dispatch
         SEND_ERROR,       // Generate an error page or error dispatch
         ASYNC_ERROR,      // handle an async error

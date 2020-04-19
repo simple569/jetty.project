@@ -25,7 +25,7 @@ import org.eclipse.jetty.start.Props;
 import org.eclipse.jetty.start.RawArgs;
 import org.eclipse.jetty.start.StartIni;
 
-/**
+/**    <p>表示配置源</p>
  * A Configuration Source
  */
 public interface ConfigSource

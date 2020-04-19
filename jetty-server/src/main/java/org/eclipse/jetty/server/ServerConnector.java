@@ -172,7 +172,7 @@ public class ServerConnector extends AbstractNetworkConnector
         @Name("selectors") int selectors,
         @Name("sslContextFactory") SslContextFactory.Server sslContextFactory)
     {
-        this(server, null, null, null, acceptors, selectors, AbstractConnectionFactory.getFactories(sslContextFactory, new HttpConnectionFactory()));
+        this(server, null, null, null, acceptors, selectors, AbstractConnectionFactory.getFactories(sslContextFactory, new HttpConnectionFactory()));//默认http
     }
 
     /**
@@ -196,7 +196,7 @@ public class ServerConnector extends AbstractNetworkConnector
      * @param scheduler A scheduler used to schedule timeouts. If null then use the servers scheduler
      * @param bufferPool A ByteBuffer pool used to allocate buffers.  If null then create a private pool with default configuration.
      * @param acceptors the number of acceptor threads to use, or -1 for a default value. Acceptors accept new TCP/IP connections.  If 0, then
-     * the selector threads are used to accept connections.
+     * the selector threads are used to accept connections. 接收Tcp/Ip 连接的线程数量
      * @param selectors the number of selector threads, or &lt;=0 for a default value. Selectors notice and schedule established connection that can make IO progress.
      * @param factories Zero or more {@link ConnectionFactory} instances used to create and configure connections.
      */
@@ -206,7 +206,7 @@ public class ServerConnector extends AbstractNetworkConnector
         @Name("scheduler") Scheduler scheduler,
         @Name("bufferPool") ByteBufferPool bufferPool,
         @Name("acceptors") int acceptors,
-        @Name("selectors") int selectors,
+        @Name("selectors") int selectors,  //selector线程的数量,0表示默认值
         @Name("factories") ConnectionFactory... factories)
     {
         super(server, executor, scheduler, bufferPool, acceptors, factories);
@@ -373,7 +373,7 @@ public class ServerConnector extends AbstractNetworkConnector
         }
         _localPort = -2;
     }
-
+    /**Acceptor线程调用*/
     @Override
     public void accept(int acceptorID) throws IOException
     {
@@ -384,7 +384,7 @@ public class ServerConnector extends AbstractNetworkConnector
             accepted(channel);
         }
     }
-
+    /**接收到socket*/
     private void accepted(SocketChannel channel) throws IOException
     {
         channel.configureBlocking(false);
@@ -496,7 +496,7 @@ public class ServerConnector extends AbstractNetworkConnector
             throw new RuntimeException(e);
         }
     }
-
+    /**Selector的manager*/
     protected class ServerConnectorManager extends SelectorManager
     {
         public ServerConnectorManager(Executor executor, Scheduler scheduler, int selectors)

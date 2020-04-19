@@ -79,7 +79,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
         }
     }
 
-    private final AtomicBoolean _started = new AtomicBoolean(false);
+    private final AtomicBoolean _started = new AtomicBoolean(false);//doStart()完成标志
     private boolean _selecting = false;
     private final SelectorManager _selectorManager;
     private final int _id;
@@ -368,7 +368,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
             getActionSize());
     }
 
-    /**
+    /**   <p>特殊的EndPoint,被ManagedSelector通知non-blocking events</p>
      * A {@link Selectable} is an {@link EndPoint} that wish to be
      * notified of non-blocking events by the {@link ManagedSelector}.
      */
@@ -594,7 +594,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
         }
     }
 
-    /**
+    /**    <p>当selector被唤醒时调用update</p>
      * A selector update to be done when the selector has been woken.
      */
     public interface SelectorUpdate
@@ -737,12 +737,12 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
         }
 
         @Override
-        public void update(Selector selector)
+        public void update(Selector selector)//submit
         {
             try
             {
-                key = channel.register(selector, 0, attachment);
-                execute(this);
+                key = channel.register(selector, 0, attachment);//注册
+                execute(this);//运行当前任务
             }
             catch (Throwable x)
             {

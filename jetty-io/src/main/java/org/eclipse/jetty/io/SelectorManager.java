@@ -47,7 +47,7 @@ import org.eclipse.jetty.util.thread.ThreadPoolBudget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**    <p>管理一组数量的ManagedSelector</p>
  * <p>{@link SelectorManager} manages a number of {@link ManagedSelector}s that
  * simplify the non-blocking primitives provided by the JVM via the {@code java.nio} package.</p>
  * <p>{@link SelectorManager} subclasses implement methods to return protocol-specific
@@ -183,7 +183,7 @@ public abstract class SelectorManager extends ContainerLifeCycle implements Dump
         accept(channel, null);
     }
 
-    /**
+    /**    <p>注册channel执行非阻塞的read/write操作</p>
      * <p>Registers a channel to perform non-blocking read/write operations.</p>
      * <p>This method is called just after a channel has been accepted by {@link ServerSocketChannel#accept()},
      * or just after having performed a blocking connect via {@link Socket#connect(SocketAddress, int)}, or
@@ -216,7 +216,7 @@ public abstract class SelectorManager extends ContainerLifeCycle implements Dump
         return acceptor;
     }
 
-    /**
+    /**    <p>当从ServerSocketChannel接收到channel时回调方法</p>
      * Callback method when a channel is accepted from the {@link ServerSocketChannel}
      * passed to {@link #acceptor(SelectableChannel)}.
      * The default impl throws an {@link UnsupportedOperationException}, so it must
@@ -243,7 +243,7 @@ public abstract class SelectorManager extends ContainerLifeCycle implements Dump
         super.doStart();
     }
 
-    /**
+    /**    <p>创建ManagedSelector的工厂方法</p>
      * <p>Factory method for {@link ManagedSelector}.</p>
      *
      * @param id an identifier for the {@link ManagedSelector to create}
@@ -424,7 +424,7 @@ public abstract class SelectorManager extends ContainerLifeCycle implements Dump
         }
         return false;
     }
-
+    /**在SelectorManager accept后 submit(SelectorManager#submit)到SelectorManager之前回调该方法*/
     protected void onAccepting(SelectableChannel channel)
     {
         for (AcceptListener l : _acceptListeners)

@@ -71,7 +71,7 @@ public class ServerSupport
             server.setRequestLog(requestLog);
 
         ContextHandlerCollection contexts = findContextHandlerCollection(server);
-        if (contexts == null)
+        if (contexts == null)//不存在
         {
             contexts = new ContextHandlerCollection();
             HandlerCollection handlers = server.getChildHandlerByClass(HandlerCollection.class);
