@@ -98,9 +98,9 @@ import org.eclipse.jetty.util.UrlEncoded;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**    <p>Jetty servlet Request</p>
  * Jetty Request.
- * <p>
+ * <p>实现HttpServletRequest</p><p>
  * Implements {@link javax.servlet.http.HttpServletRequest} from the <code>javax.servlet.http</code> package.
  * </p>
  * <p>
@@ -282,7 +282,7 @@ public class Request implements HttpServletRequest
     private String _asyncNotSupportedSource = null;
     private boolean _newContext;
     private boolean _cookiesExtracted = false;
-    private boolean _handled = false;
+    private boolean _handled = false;//判断是有已经被Handle处理
     private boolean _contentParamsExtracted;
     private boolean _requestedSessionIdFromCookie = false;
     private Attributes _attributes;
@@ -1455,7 +1455,7 @@ public class Request implements HttpServletRequest
         return session.getId();
     }
 
-    /**
+    /**   <p>在该request关联的connection结束连接</p>
      * Called when the request is fully finished being handled.
      * For every session in any context that the session has
      * accessed, ensure that the session is completed.

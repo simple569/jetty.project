@@ -56,7 +56,7 @@ import org.eclipse.jetty.xml.XmlParser.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**   <p>解析web.xml, web-defaults.xml, web-overrides.xml, and web-fragment.xml</p>
  * StandardDescriptorProcessor.
  * <p>
  * Process the web.xml, web-defaults.xml, web-overrides.xml, and web-fragment.xml descriptors.

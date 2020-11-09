@@ -18,7 +18,7 @@
 
 package org.eclipse.jetty.websocket.core;
 
-/**
+/**    <p>WebSocket Extensions的接口 </p>
  * Interface for WebSocket Extensions.
  * <p>
  * That {@link Frame}s are passed through the Extension via the {@link IncomingFrames} and {@link OutgoingFrames} interfaces

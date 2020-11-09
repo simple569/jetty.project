@@ -199,7 +199,7 @@ public class Modules implements Iterable<Module>
 
     public void registerAll() throws IOException
     {
-        for (Path path : _baseHome.getPaths("modules/*.mod"))
+        for (Path path : _baseHome.getPaths("modules/*.mod")) //获取所有*.--mod文件
         {
             registerModule(path);
         }

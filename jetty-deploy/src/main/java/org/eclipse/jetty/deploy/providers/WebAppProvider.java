@@ -65,7 +65,7 @@ public class WebAppProvider extends ScanningAppProvider
     private boolean _extractWars = false;
     private boolean _parentLoaderPriority = false;
     private ConfigurationManager _configurationManager;
-    private String _defaultsDescriptor;
+    private String _defaultsDescriptor;//默认描述符
     private File _tempDirectory;
     private String[] _configurationClasses;
 
@@ -259,7 +259,7 @@ public class WebAppProvider extends ScanningAppProvider
         webapp.setExtractWAR(_extractWars);
         webapp.setParentLoaderPriority(_parentLoaderPriority);
         if (_configurationClasses != null)
-            webapp.setConfigurationClasses(_configurationClasses);
+            webapp.setConfigurationClasses(_configurationClasses);//不会添加系统默认的,需要自己手动添加
 
         if (_tempDirectory != null)
         {
@@ -283,7 +283,7 @@ public class WebAppProvider extends ScanningAppProvider
 
         String context = file.getName();
 
-        if (resource.exists() && FileID.isXmlFile(file))
+        if (resource.exists() && FileID.isXmlFile(file))//如果是xml文件
         {
             XmlConfiguration xmlc = new XmlConfiguration(resource)
             {
@@ -321,7 +321,7 @@ public class WebAppProvider extends ScanningAppProvider
         }
 
         // Ensure "/" is Not Trailing in context paths.
-        if (context.endsWith("/") && context.length() > 0)
+        if (context.endsWith("/") && context.length() > 0)//不以 "/"结尾
         {
             context = context.substring(0, context.length() - 1);
         }
@@ -339,7 +339,7 @@ public class WebAppProvider extends ScanningAppProvider
         {
             int dash = context.toLowerCase(Locale.ENGLISH).indexOf('-');
             String virtual = context.substring(dash + 1);
-            webAppContext.setVirtualHosts(new String[]{virtual});
+            webAppContext.setVirtualHosts(new String[]{virtual});//虚拟host
             context = URIUtil.SLASH;
         }
 
@@ -421,7 +421,7 @@ public class WebAppProvider extends ScanningAppProvider
         if (!file.exists())
             return;
 
-        //is the file that was added a directory? 
+        //is the file that was added a directory?   如果是目录
         if (file.isDirectory())
         {
             //is there a .xml file of the same name?

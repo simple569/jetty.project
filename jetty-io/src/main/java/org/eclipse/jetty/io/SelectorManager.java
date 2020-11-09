@@ -65,10 +65,10 @@ public abstract class SelectorManager extends ContainerLifeCycle implements Dump
     private final ManagedSelector[] _selectors;
     private final AtomicInteger _selectorIndex = new AtomicInteger();
     private final IntUnaryOperator _selectorIndexUpdate;
-    private final List<AcceptListener> _acceptListeners = new ArrayList<>();
+    private final List<AcceptListener> _acceptListeners = new ArrayList<>();//连接相关事件listener
     private long _connectTimeout = DEFAULT_CONNECT_TIMEOUT;
     private ThreadPoolBudget.Lease _lease;
-
+    //使用默认的selector数量
     private static int defaultSelectors(Executor executor)
     {
         if (executor instanceof ThreadPool.SizedThreadPool)
@@ -298,7 +298,7 @@ public abstract class SelectorManager extends ContainerLifeCycle implements Dump
     {
     }
 
-    /**
+    /**   <p>//当connect对象opened时回调(connectionFactory.newConnection 之后回调)</p>
      * <p>Callback method invoked when a connection is opened.</p>
      *
      * @param connection the connection just opened

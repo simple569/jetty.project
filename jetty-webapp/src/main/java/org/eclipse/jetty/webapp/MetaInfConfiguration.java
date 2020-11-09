@@ -74,7 +74,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
     public static final String CACHED_CONTAINER_TLDS = "org.eclipse.jetty.tlds.cache";
     public static final String CACHED_CONTAINER_FRAGMENTS = FragmentConfiguration.FRAGMENT_RESOURCES + ".cache";
     public static final String CACHED_CONTAINER_RESOURCES = "org.eclipse.jetty.resources.cache";
-    public static final String METAINF_TLDS = "org.eclipse.jetty.tlds";
+    public static final String METAINF_TLDS = "org.eclipse.jetty.tlds";//参见JettyJasperInitializer
     public static final String METAINF_FRAGMENTS = FragmentConfiguration.FRAGMENT_RESOURCES;
     public static final String METAINF_RESOURCES = "org.eclipse.jetty.resources";
     public static final String CONTAINER_JAR_PATTERN = "org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern";
@@ -178,7 +178,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
      * Find jars and directories that are on the container's classpath
      * and apply an optional filter. The filter is a pattern applied to the
      * full jar or directory names. If there is no pattern, then no jar
-     * or dir is considered to match.
+     * or dir is considered to match.   <p>如果没有指定模式,没有jar或者dir被匹配</p>
      *
      * Those jars that do match will be later examined for META-INF
      * information and annotations.
@@ -269,7 +269,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
         throws Exception
     {
         //Apply filter to WEB-INF/lib jars
-        WebAppPathNameMatcher matcher = new WebAppPathNameMatcher(context, (String)context.getAttribute(WEBINF_JAR_PATTERN));
+        WebAppPathNameMatcher matcher = new WebAppPathNameMatcher(context, (String)context.getAttribute(WEBINF_JAR_PATTERN));//查找WEB/INF下的所有jar包
 
         List<Resource> jars = findJars(context);
 
@@ -382,7 +382,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
      *
      * @param context the context for the scan
      * @param jars the jars resources to scan
-     * @param useCaches if true, cache the info discovered
+     * @param useCaches if true, cache the info discovered  缓存已经扫描的jar
      * @param scanTypes the type of things to look for in the jars
      * @throws Exception if unable to scan the jars
      */
@@ -429,7 +429,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
         }
     }
 
-    /**
+    /**    <p>扫描给的jar的META-INF/resources </p>
      * Scan for META-INF/resources dir in the given jar.
      *
      * @param context the context for the scan
@@ -731,7 +731,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
         return classDirs;
     }
 
-    /**
+    /**   <p>查找所有WEB-INF/lib下的所有jar包</p>
      * Look for jars that should be treated as if they are in WEB-INF/lib
      *
      * @param context the context to find the jars in
@@ -745,7 +745,7 @@ public class MetaInfConfiguration extends AbstractConfiguration
         List<Resource> webInfLibJars = findWebInfLibJars(context);
         if (webInfLibJars != null)
             jarResources.addAll(webInfLibJars);
-        List<Resource> extraClasspathJars = findExtraClasspathJars(context);
+        List<Resource> extraClasspathJars = findExtraClasspathJars(context);//在外部jar中查找
         if (extraClasspathJars != null)
             jarResources.addAll(extraClasspathJars);
         return jarResources;

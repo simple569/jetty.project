@@ -515,7 +515,7 @@ public class Server extends HandlerWrapper implements Attributes
         mex.ifExceptionThrow();
     }
 
-    /* Handle a request from a connection.
+    /* Handle a request from a connection.   <p>从连接器处理请求</p>
      * Called to handle a request on the connection when either the header has been received,
      * or after the entire request has been received (for short requests of known length), or
      * on the dispatch of an async request.
@@ -538,8 +538,8 @@ public class Server extends HandlerWrapper implements Attributes
             }
             else
             {
-                handleOptions(request, response);
-                if (!request.isHandled())
+                handleOptions(request, response);//optopns * 特殊处理
+                if (!request.isHandled())//
                     handle(target, request, request, response);
             }
         }

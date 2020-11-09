@@ -42,7 +42,7 @@ import org.eclipse.jetty.start.UsageException;
 
 import static org.eclipse.jetty.start.UsageException.ERR_BAD_ARG;
 
-/**
+/**   <p>基于目录的ConfigSource</p>
  * A Directory based {@link ConfigSource}.
  * <p>
  * Such as <code>${jetty.base}</code> or and <code>--include-jetty-dir=[path]</code> sources.
@@ -76,7 +76,7 @@ public class DirConfigSource implements ConfigSource
     private final Path dir;
     private final int weight;
     private final RawArgs args;
-    private final Props props;
+    private final Props props;//选项列表
     private final Set<StartIni> startInis = new HashSet<>();
 
     /**
@@ -117,7 +117,7 @@ public class DirConfigSource implements ConfigSource
                 // ignore
             }
 
-            Path startDdir = dir.resolve("start.d");
+            Path startDdir = dir.resolve("start.d");//解析start.d 目录
 
             if (FS.canReadDirectory(startDdir))
             {

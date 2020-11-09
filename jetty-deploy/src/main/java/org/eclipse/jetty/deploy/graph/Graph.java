@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
+/**    生命周期图
  * Basic directed graph implementation
  */
 public class Graph

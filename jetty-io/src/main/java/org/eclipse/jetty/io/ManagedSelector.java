@@ -80,13 +80,13 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
     }
 
     private final AtomicBoolean _started = new AtomicBoolean(false);//doStart()完成标志
-    private boolean _selecting = false;
+    private boolean _selecting = false;//正在调用selector#select方法
     private final SelectorManager _selectorManager;
     private final int _id;
     private final ExecutionStrategy _strategy;
     private Selector _selector;
-    private Deque<SelectorUpdate> _updates = new ArrayDeque<>();
-    private Deque<SelectorUpdate> _updateable = new ArrayDeque<>();
+    private Deque<SelectorUpdate> _updates = new ArrayDeque<>();//提交的更新,参见submit方法
+    private Deque<SelectorUpdate> _updateable = new ArrayDeque<>();//
 
     public ManagedSelector(SelectorManager selectorManager, int id)
     {
@@ -160,7 +160,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
         super.doStop();
     }
 
-    /**
+    /**   <p>提交SelectorUpdate在调用Selector#select()之间被执行</p>
      * Submit an {@link SelectorUpdate} to be acted on between calls to {@link Selector#select()}
      *
      * @param update The selector update to apply at next wakeup
@@ -178,7 +178,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
             if (_selecting)
             {
                 selector = _selector;
-                // To avoid the extra select wakeup.
+                // To avoid the extra select wakeup.  只有在_selecting中的selector需要wakeup
                 _selecting = false;
             }
         }
@@ -264,7 +264,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
     {
         _selectorManager.endPointClosed(endPoint);
     }
-
+    /**创建抽象的EndPoint对象*/
     private void createEndPoint(SelectableChannel channel, SelectionKey selectionKey) throws IOException
     {
         EndPoint endPoint = _selectorManager.newEndPoint(channel, this, selectionKey);
@@ -274,7 +274,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
         selectionKey.attach(endPoint);
         endPoint.onOpen();
         endPointOpened(endPoint);
-        _selectorManager.connectionOpened(connection, context);
+        _selectorManager.connectionOpened(connection, context);//告知
         if (LOG.isDebugEnabled())
             LOG.debug("Created {}", endPoint);
     }
@@ -368,13 +368,13 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
             getActionSize());
     }
 
-    /**   <p>特殊的EndPoint,被ManagedSelector通知non-blocking events</p>
+    /**   <p>特殊的EndPoint是Selectable,被ManagedSelector通知non-blocking events,ManagerSelector,处理</p>
      * A {@link Selectable} is an {@link EndPoint} that wish to be
      * notified of non-blocking events by the {@link ManagedSelector}.
      */
     public interface Selectable
     {
-        /**
+        /**    <p>当有读写事件发生时的回调方法</p>
          * Callback method invoked when a read or write events has been
          * detected by the {@link ManagedSelector} for this endpoint.
          *
@@ -407,7 +407,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
 
                 updateKeys();
 
-                if (!select())
+                if (!select())//select失败返回
                     return null;
             }
         }
@@ -532,14 +532,14 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
                         LOG.debug("selected {} {} {} ", safeReadyOps(key), key, attachment);
                     try
                     {
-                        if (attachment instanceof Selectable)
+                        if (attachment instanceof Selectable)//附加的key
                         {
                             // Try to produce a task
                             Runnable task = ((Selectable)attachment).onSelected();
                             if (task != null)
                                 return task;
                         }
-                        else if (key.isConnectable())
+                        else if (key.isConnectable())//
                         {
                             processConnect(key, (Connect)attachment);
                         }
@@ -715,7 +715,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
                 key.cancel();
         }
     }
-
+    /**先要对Selector进行一次更新,注册当前channel到selector*/
     class Accept implements SelectorUpdate, Runnable, Closeable
     {
         private final SelectableChannel channel;
@@ -737,7 +737,7 @@ public class ManagedSelector extends ContainerLifeCycle implements Dumpable
         }
 
         @Override
-        public void update(Selector selector)//submit
+        public void update(Selector selector)//submit该任务,之后,selectManager会
         {
             try
             {

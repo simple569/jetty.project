@@ -52,7 +52,7 @@ public class JettyWebSocketServletContainerInitializer implements ServletContain
      * @param configurator a lambda that is called to allow the {@link WebSocketMapping} to
      * be configured during {@link ServletContext} initialization phase
      */
-    public static void configure(ServletContextHandler context, Configurator configurator)
+    public static void  configure(ServletContextHandler context, Configurator configurator)
     {
         context.addEventListener(
             ContainerInitializer

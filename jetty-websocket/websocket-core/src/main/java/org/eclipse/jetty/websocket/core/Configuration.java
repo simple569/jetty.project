@@ -73,7 +73,7 @@ public interface Configuration
     long getMaxTextMessageSize();
 
     void setMaxTextMessageSize(long maxSize);
-
+    /**个性化Configuration*/
     interface Customizer
     {
         void customize(Configuration configurable);

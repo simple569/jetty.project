@@ -42,7 +42,7 @@ public class ContainerInitializer
 
     protected final ServletContainerInitializer _target;
     protected final Class<?>[] _interestedTypes;
-    protected final Set<String> _applicableTypeNames = ConcurrentHashMap.newKeySet();
+    protected final Set<String> _applicableTypeNames = ConcurrentHashMap.newKeySet();//HandleTypes最终类型名
     protected final Set<String> _annotatedTypeNames = ConcurrentHashMap.newKeySet();
 
     public ContainerInitializer(ServletContainerInitializer target, Class<?>[] classes)

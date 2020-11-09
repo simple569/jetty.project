@@ -35,7 +35,7 @@ import org.eclipse.jetty.util.thread.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**    <p>限流,限制连接速率</p>
  * <p>A Listener that limits the rate at which new connections are accepted</p>
  * <p>
  * If the limits are exceeded, accepting is suspended until the rate is again below

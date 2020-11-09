@@ -116,7 +116,7 @@ public class ContextHandlerCollection extends HandlerCollection
             Branch[] branches = entry.getValue();
             Branch[] sorted = new Branch[branches.length];
             int i = 0;
-            for (Branch branch : branches)
+            for (Branch branch : branches)//排序有虚拟地址的在前
             {
                 if (branch.hasVirtualHost())
                     sorted[i++] = branch;
@@ -133,7 +133,7 @@ public class ContextHandlerCollection extends HandlerCollection
         int capacity = 512;
         Mapping mapping;
         loop:
-        while (true)
+        while (true)//构建前缀树
         {
             mapping = new Mapping(handlers, capacity);
             for (Map.Entry<String, Branch[]> entry : path2Branches.entrySet())
@@ -237,7 +237,7 @@ public class ContextHandlerCollection extends HandlerCollection
         }
     }
 
-    /**
+    /**   <p>线程安全的发布handler</p>
      * Thread safe deploy of a Handler.
      * <p>
      * This method is the equivalent of {@link #addHandler(Handler)},
@@ -303,7 +303,7 @@ public class ContextHandlerCollection extends HandlerCollection
             }
         });
     }
-
+    /**分支,应用上下文路径*/
     private static final class Branch
     {
         private final Handler _handler;

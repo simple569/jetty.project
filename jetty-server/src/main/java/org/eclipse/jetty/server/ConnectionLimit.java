@@ -36,7 +36,7 @@ import org.eclipse.jetty.util.component.Container;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**    <p>限制连接数量</p>
  * <p>A Listener that limits the number of Connections.</p>
  * <p>This listener applies a limit to the number of connections, which when
  * exceeded results in  a call to {@link AbstractConnector#setAccepting(boolean)}

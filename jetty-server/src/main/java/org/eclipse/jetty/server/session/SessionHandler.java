@@ -891,7 +891,7 @@ public class SessionHandler extends ScopedHandler
             if (session != null)
             {
                 //If the session we got back has expired
-                if (session.isExpiredAt(System.currentTimeMillis()))
+                if (session.isExpiredAt(System.currentTimeMillis()))// 如果会话对象已过期
                 {
                     //Expire the session
                     try
@@ -1498,7 +1498,7 @@ public class SessionHandler extends ScopedHandler
                     baseRequest.setSession(null);
                     checkRequestedSessionId(baseRequest, request);
                     existingSession = baseRequest.getSession(false);
-                    baseRequest.setSessionHandler(this);
+                    baseRequest.setSessionHandler(this);//设置会话
                     baseRequest.setSession(existingSession); //can be null
                     break;
                 }
@@ -1533,9 +1533,9 @@ public class SessionHandler extends ScopedHandler
                     break;
             }
 
-            if ((existingSession != null) && (oldSessionHandler != this))
+            if ((existingSession != null) && (oldSessionHandler != this))//对于request oldSessionHandler ==null
             {
-                HttpCookie cookie = access(existingSession, request.isSecure());
+                HttpCookie cookie = access(existingSession, request.isSecure());//后端会话有效,前端cookie失效
                 // Handle changed ID or max-age refresh, but only if this is not a redispatched request
                 if ((cookie != null) &&
                     (request.getDispatcherType() == DispatcherType.ASYNC ||

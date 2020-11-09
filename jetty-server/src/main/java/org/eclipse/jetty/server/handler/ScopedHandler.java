@@ -30,7 +30,7 @@ import org.eclipse.jetty.server.Response;
 
 /**
  * ScopedHandler.
- *
+ *    <p></p>
  * A ScopedHandler is a HandlerWrapper where the wrapped handlers
  * each define a scope.
  *
@@ -130,7 +130,7 @@ public abstract class ScopedHandler extends HandlerWrapper
     {
         if (isStarted())
         {
-            if (_outerScope == null)
+            if (_outerScope == null)//第一个scopehandle
                 doScope(target, baseRequest, request, response);
             else
                 doHandle(target, baseRequest, request, response);

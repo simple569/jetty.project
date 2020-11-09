@@ -464,7 +464,7 @@ public class Runner
                         else
                         {
                             // assume it is a WAR file
-                            WebAppContext webapp = new WebAppContext(_contexts, ctx.toString(), contextPath);
+                            WebAppContext webapp = new WebAppContext(_contexts, ctx.toString(), contextPath);//应用上下文
                             webapp.setConfigurationClasses(PLUS_CONFIGURATION_CLASSES);
                             webapp.setAttribute(MetaInfConfiguration.CONTAINER_JAR_PATTERN,
                                 CONTAINER_INCLUDE_JAR_PATTERN);

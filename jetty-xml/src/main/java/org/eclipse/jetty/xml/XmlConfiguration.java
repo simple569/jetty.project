@@ -276,7 +276,7 @@ public class XmlConfiguration
         {
             _processor = new JettyXmlConfiguration();
         }
-        else if (PROCESSOR_FACTORIES != null)
+        else if (PROCESSOR_FACTORIES != null)//如果根节点是非Configure
         {
             for (ConfigurationProcessorFactory factory : PROCESSOR_FACTORIES)
             {
@@ -1147,7 +1147,7 @@ public class XmlConfiguration
             return map;
         }
 
-        /**
+        /**    <p>Property节点将变量替换为给定值</p>
          * <p>Returns the value of a property.</p>
          *
          * @param node the &lt;Property&gt; XML node
@@ -1804,14 +1804,14 @@ public class XmlConfiguration
                     }
                     else if (arg.toLowerCase(Locale.ENGLISH).endsWith(".properties"))
                         properties.load(Resource.newResource(arg).getInputStream());
-                }
+                }//所有选项
 
                 // For all arguments, parse XMLs
                 XmlConfiguration last = null;
                 List<Object> objects = new ArrayList<>(args.length);
                 for (String arg : args)
                 {
-                    if (!arg.toLowerCase(Locale.ENGLISH).endsWith(".properties") && (arg.indexOf('=') < 0))//xml文件参数
+                    if (!arg.toLowerCase(Locale.ENGLISH).endsWith(".properties") && (arg.indexOf('=') < 0))//即不是xml文件也不是选项
                     {
                         XmlConfiguration configuration = new XmlConfiguration(Resource.newResource(arg));
                         if (last != null)

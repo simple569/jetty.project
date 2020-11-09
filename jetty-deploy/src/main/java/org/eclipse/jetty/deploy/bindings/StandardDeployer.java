@@ -41,6 +41,6 @@ public class StandardDeployer implements AppLifeCycle.Binding
 
         Callback.Completable blocker = new Callback.Completable();
         app.getDeploymentManager().getContexts().deployHandler(handler, blocker);
-        blocker.get();
+        blocker.get();//feature
     }
 }

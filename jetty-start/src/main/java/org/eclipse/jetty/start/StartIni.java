@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 
 import org.eclipse.jetty.start.Props.Prop;
 
-/**
+/**    .ini 文件处理器
  * Simple Start .INI handler
  */
 public class StartIni extends TextFile
@@ -47,7 +47,7 @@ public class StartIni extends TextFile
         {
             int idx = line.indexOf('=');
             String value = line.substring(idx + 1);
-            for (String part : value.split(","))
+            for (String part : value.split(","))   //多个模块可以在同一行
             {
                 super.addUniqueLine("--module=" + expandBaseDir(part));
             }

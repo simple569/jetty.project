@@ -283,7 +283,7 @@ public class WebInfConfiguration extends AbstractConfiguration
         {
             String war = context.getWar();
             if (war != null && war.length() > 0)
-                webApp = context.newResource(war);
+                webApp = context.newResource(war);//设置war资源
             else
                 webApp = context.getBaseResource();
 
@@ -317,16 +317,16 @@ public class WebInfConfiguration extends AbstractConfiguration
 
             // If we should extract or the URL is still not usable
             if (webApp.exists() && (
-                (context.isCopyWebDir() && webApp.getFile() != null && webApp.getFile().isDirectory()) ||
+                (context.isCopyWebDir() && webApp.getFile() != null && webApp.getFile().isDirectory()) ||  //copy webapp dir的情况
                     (context.isExtractWAR() && webApp.getFile() != null && !webApp.getFile().isDirectory()) ||
                     (context.isExtractWAR() && webApp.getFile() == null) ||
-                    !webApp.isDirectory())
+                    !webApp.isDirectory())// war包 解压war包的情况
             )
             {
                 // Look for sibling directory.
                 File extractedWebAppDir = null;
 
-                if (war != null)
+                if (war != null)//查找兄弟目录
                 {
                     // look for a sibling like "foo/" to a "foo.war"
                     File warfile = Resource.newResource(war).getFile();
@@ -345,7 +345,7 @@ public class WebInfConfiguration extends AbstractConfiguration
                     context.setAttribute(TEMPORARY_RESOURCE_BASE, extractedWebAppDir);
                 }
 
-                if (webApp.getFile() != null && webApp.getFile().isDirectory())
+                if (webApp.getFile() != null && webApp.getFile().isDirectory())//如果指定的web应用不是war包,extractedWebAppDir为null,指定的web应用是目录的情况
                 {
                     // Copy directory
                     LOG.debug("Copy " + webApp + " to " + extractedWebAppDir);

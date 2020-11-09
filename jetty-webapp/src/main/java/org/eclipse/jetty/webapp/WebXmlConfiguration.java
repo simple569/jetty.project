@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 public class WebXmlConfiguration extends AbstractConfiguration
 {
     private static final Logger LOG = LoggerFactory.getLogger(WebXmlConfiguration.class);
-
+    /**依赖WebInfConfiguration*/
     public WebXmlConfiguration()
     {
         addDependencies(WebInfConfiguration.class);

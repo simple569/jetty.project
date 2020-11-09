@@ -205,7 +205,7 @@ public class EatWhatYouKill extends ContainerLifeCycle implements ExecutionStrat
         }
 
         Mode mode;
-        if (nonBlocking)
+        if (nonBlocking)//非阻塞模式消费
         {
             // The calling thread cannot block, so we only have a choice between PC and PEC modes,
             // based on the invocation type of the task

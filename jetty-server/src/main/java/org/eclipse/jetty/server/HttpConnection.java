@@ -525,11 +525,11 @@ public class HttpConnection extends AbstractConnection implements Runnable, Http
     }
 
     @Override
-    public void onOpen()
+    public void onOpen()//
     {
         super.onOpen();
         if (isRequestBufferEmpty())
-            fillInterested();
+            fillInterested();//感兴趣的事件
         else
             getExecutor().execute(this);
     }

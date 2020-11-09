@@ -238,7 +238,7 @@ public class JarResource extends URLResource
                 }
             }
 
-            if ((subEntryName == null) || (subEntryName != null && subEntryName.equalsIgnoreCase("META-INF/MANIFEST.MF")))
+            if ((subEntryName == null) || (subEntryName != null && subEntryName.equalsIgnoreCase("META-INF/MANIFEST.MF")))//MANIFEST文件特殊处理
             {
                 Manifest manifest = jin.getManifest();
                 if (manifest != null)

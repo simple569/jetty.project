@@ -46,7 +46,7 @@ import org.eclipse.jetty.util.component.AbstractLifeCycle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**    <p>扫描增肌的目录</p>
  * Scanner
  *
  * Utility for scanning a directory for added, removed and changed

@@ -31,7 +31,7 @@ public class AbstractConfiguration implements Configuration
     private final List<String> _beforeThis = new ArrayList<>();
     private final ClassMatcher _system = new ClassMatcher();
     private final ClassMatcher _server = new ClassMatcher();
-
+    /**默认构造函数可用*/
     protected AbstractConfiguration()
     {
         this(true);
@@ -55,7 +55,7 @@ public class AbstractConfiguration implements Configuration
         }
     }
 
-    /**
+    /**   <P>该Configuration依赖的configuration</P>
      * Add configuration classes that come before this configuration
      *
      * @param classes Classes
@@ -65,7 +65,7 @@ public class AbstractConfiguration implements Configuration
         addDependencies(Arrays.asList(classes).stream().map(Class::getName).collect(Collectors.toList()).toArray(new String[classes.length]));
     }
 
-    /**
+    /**   <p>依赖该Configuration的configuration</p>
      * Add configuration classes that come after this configuration
      *
      * @param classes Classname or package name

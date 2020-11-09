@@ -30,7 +30,7 @@ import org.eclipse.jetty.util.FutureCallback;
 import org.eclipse.jetty.util.IteratingCallback;
 import org.eclipse.jetty.util.thread.Invocable;
 
-/**
+/**   <p>传输终端</p>
  * A transport EndPoint
  *
  * <h3>Asynchronous Methods</h3>
@@ -216,7 +216,7 @@ public interface EndPoint extends Closeable
      */
     void setIdleTimeout(long idleTimeout);
 
-    /**
+    /**   <p>注册读回调</p>
      * <p>Requests callback methods to be invoked when a call to {@link #fill(ByteBuffer)} would return data or EOF.</p>
      *
      * @param callback the callback to call when an error occurs or we are readable.  The callback may implement the {@link Invocable} interface to
@@ -279,7 +279,7 @@ public interface EndPoint extends Closeable
      */
     void onClose(Throwable cause);
 
-    /**
+    /**   <p>升级协议</p>
      * Upgrade connections.
      * Close the old connection, update the endpoint and open the new connection.
      * If the oldConnection is an instance of {@link Connection.UpgradeFrom} then

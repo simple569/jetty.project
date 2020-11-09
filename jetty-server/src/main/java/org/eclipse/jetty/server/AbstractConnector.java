@@ -147,17 +147,17 @@ public abstract class AbstractConnector extends ContainerLifeCycle implements Co
     private final Condition _setAccepting = _lock.newCondition();
     private final Map<String, ConnectionFactory> _factories = new LinkedHashMap<>(); // Order is important on server side, so we use a LinkedHashMap
     private final Server _server;
-    private final Executor _executor;// 运行该Connector所需的task,例如接收连接
+    private final Executor _executor;// 运行该Connector所需的task,例如接收连接 ,默认为server.getThreadPool
     private final Scheduler _scheduler;//monitor the idle timeouts of all connections 、对connections计时处理例如异步请求超时
     private final ByteBufferPool _byteBufferPool;
-    private final Thread[] _acceptors;
-    private final Set<EndPoint> _endpoints = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private final Thread[] _acceptors;//连接器线程
+    private final Set<EndPoint> _endpoints = Collections.newSetFromMap(new ConcurrentHashMap<>());  //维护所有endpoint
     private final Set<EndPoint> _immutableEndPoints = Collections.unmodifiableSet(_endpoints);
     private Shutdown _shutdown;
     private HttpChannel.Listener _httpChannelListeners = HttpChannel.NOOP_LISTENER;
     private long _idleTimeout = 30000;
     private long _shutdownIdleTimeout = 1000L;
-    private String _defaultProtocol;
+    private String _defaultProtocol;//addConnectionFactory 设置为第一个ConnectionFactory的协议
     private ConnectionFactory _defaultConnectionFactory;
     private String _name;
     private int _acceptorPriorityDelta = -2;
@@ -533,7 +533,7 @@ public abstract class AbstractConnector extends ContainerLifeCycle implements Co
             throw new IllegalStateException(getState());
 
         String key = StringUtil.asciiToLowerCase(factory.getProtocol());
-        if (!_factories.containsKey(key))
+        if (!_factories.containsKey(key))//如果不包含该connectionfactory 则增加该factory
             addConnectionFactory(factory);
     }
 
@@ -703,11 +703,11 @@ public abstract class AbstractConnector extends ContainerLifeCycle implements Co
             {
                 while (isRunning() && !_shutdown.isShutdown())
                 {
-                    try (AutoLock lock = _lock.lock())
+                    try (AutoLock lock = _lock.lock())   //try resource写法
                     {
                         if (!_accepting && isRunning())
                         {
-                            _setAccepting.await();
+                            _setAccepting.await();//等待设置为可接受连接
                             continue;
                         }
                     }

@@ -258,14 +258,14 @@ public class ServletContextHandler extends ContextHandler
 
             if (handler.getHandler() != _sessionHandler)
                 doSetHandler(handler, _sessionHandler);
-            handler = _sessionHandler;
+            handler = _sessionHandler;//sessionHandler
         }
 
         // link security handler
         if (getSecurityHandler() != null)
         {
             while (!(handler.getHandler() instanceof SecurityHandler) &&
-                !(handler.getHandler() instanceof ServletHandler) &&
+                !(handler.getHandler() instanceof ServletHandler) &&   //
                 handler.getHandler() instanceof HandlerWrapper)
             {
                 handler = (HandlerWrapper)handler.getHandler();
@@ -273,7 +273,7 @@ public class ServletContextHandler extends ContextHandler
 
             if (handler.getHandler() != _securityHandler)
                 doSetHandler(handler, _securityHandler);
-            handler = _securityHandler;//层层装饰
+            handler = _securityHandler;//设置下一层handler为_securityHandler
         }
 
         // link servlet handler
@@ -282,7 +282,7 @@ public class ServletContextHandler extends ContextHandler
             while (!(handler.getHandler() instanceof ServletHandler) &&
                 handler.getHandler() instanceof HandlerWrapper)
             {
-                handler = (HandlerWrapper)handler.getHandler();
+                handler = (HandlerWrapper)handler.getHandler();//找到底层HandlerWrapper
             }
 
             if (handler.getHandler() != _servletHandler)

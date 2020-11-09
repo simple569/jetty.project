@@ -162,9 +162,9 @@ public class IncludeExcludeSet<T, P> implements Predicate<P>
     @Override
     public boolean test(P t)
     {
-        if (!_includes.isEmpty() && !_includePredicate.test(t))
+        if (!_includes.isEmpty() && !_includePredicate.test(t))  //如果存在_includes,则只在include范围内的
             return false;
-        return !_excludePredicate.test(t);
+        return !_excludePredicate.test(t);//否则,只排除exclude的
     }
 
     /**

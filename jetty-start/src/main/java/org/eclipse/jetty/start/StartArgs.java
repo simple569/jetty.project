@@ -133,7 +133,7 @@ public class StartArgs
     /**
      * Map of enabled modules to the source of where that activation occurred
      */
-    Map<String, List<String>> sources = new HashMap<>();
+    Map<String, List<String>> sources = new HashMap<>();//key为module value为source列表 不同的source 激活相同的module
 
     /**
      * List of all active [files] sections from enabled modules
@@ -145,7 +145,7 @@ public class StartArgs
      */
     private Classpath classpath;
 
-    /**
+    /**    <p>所有激活的modules的可用xml</p>
      * List of all active [xml] sections from enabled modules
      */
     private List<Path> xmls = new ArrayList<>();
@@ -218,7 +218,7 @@ public class StartArgs
     private boolean listClasspath = false;
     private boolean listConfig = false;
     private boolean version = false;
-    private boolean dryRun = false;
+    private boolean dryRun = false;//列出当前配置要启动的java进程完整参数
     private boolean jpms = false;
     private boolean createStartd = false;
     private boolean updateIni = false;
@@ -563,11 +563,11 @@ public class StartArgs
                 jvmArgs.add(jvmArg);
             }
 
-            // Find and Expand XML files
+            // Find and Expand XML files   获取module扩展xml
             for (String xmlRef : module.getXmls())
             {
                 // Straight Reference
-                xmlRef = properties.expand(xmlRef);
+                xmlRef = properties.expand(xmlRef);//扩展xml文件地址
                 Path xmlfile = baseHome.getPath(xmlRef);
                 addUniqueXmlFile(xmlRef, xmlfile);
             }
@@ -1117,7 +1117,7 @@ public class StartArgs
             return;
         }
 
-        if (arg.equals("--update-ini") || arg.equals("--update-inis"))
+        if (arg.equals("--update-ini") || arg.equals("--update-inis"))  //更新ini文件
         {
             run = false;
             updateIni = true;
@@ -1246,10 +1246,10 @@ public class StartArgs
         }
 
         // Enable a module
-        if (arg.startsWith("--module="))
+        if (arg.startsWith("--module="))  //启用module
         {
             List<String> moduleNames = Props.getValues(arg);
-            enableModules(source, moduleNames);
+            enableModules(source, moduleNames);//启用的module
             return;
         }
 

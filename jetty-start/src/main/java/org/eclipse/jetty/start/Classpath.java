@@ -29,7 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-/**
+/**   <p>处理 classpath指令</p>
  * Class to handle CLASSPATH construction
  */
 public class Classpath implements Iterable<File>

@@ -327,7 +327,7 @@ public class HttpChannel implements Runnable, HttpOutput.Interceptor
         handle();
     }
 
-    /**
+    /**    <p>如果channel已经可以继续处理了</p>
      * @return True if the channel is ready to continue handling (ie it is not suspended)
      */
     public boolean handle()
@@ -351,7 +351,7 @@ public class HttpChannel implements Runnable, HttpOutput.Interceptor
 
                 switch (action)
                 {
-                    case TERMINATED:
+                    case TERMINATED:  //连接结束
                         onCompleted();
                         break loop;
 

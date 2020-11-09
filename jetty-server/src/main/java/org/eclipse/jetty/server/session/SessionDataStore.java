@@ -56,7 +56,7 @@ public interface SessionDataStore extends SessionDataMap
     /**
      * True if this type of datastore will passivate session objects
      *
-     * @return true if this store can passivate sessions, false otherwise
+     * @return true if this store can passivate sessions, false otherwise  true,可以持久化会话对象
      */
     public boolean isPassivating();
 

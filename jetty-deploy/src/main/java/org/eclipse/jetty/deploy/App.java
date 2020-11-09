@@ -82,7 +82,7 @@ public class App
         return _provider;
     }
 
-    /**
+    /**    <p>获取当前APP的ContextHandler,参见StandardDeployer</p>
      * Get ContextHandler for the App.
      *
      * Create it if needed.

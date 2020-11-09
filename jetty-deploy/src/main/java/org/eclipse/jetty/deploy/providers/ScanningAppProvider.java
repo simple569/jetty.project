@@ -49,11 +49,11 @@ public abstract class ScanningAppProvider extends ContainerLifeCycle implements 
 {
     private static final Logger LOG = LoggerFactory.getLogger(ScanningAppProvider.class);
 
-    private Map<String, App> _appMap = new HashMap<String, App>();
+    private Map<String, App> _appMap = new HashMap<String, App>();//维护文件名对应的app
 
     private DeploymentManager _deploymentManager;
     protected FilenameFilter _filenameFilter;
-    private final List<Resource> _monitored = new CopyOnWriteArrayList<>();
+    private final List<Resource> _monitored = new CopyOnWriteArrayList<>();//扫描的资源
     private boolean _recursive = false;
     private int _scanInterval = 10;
     private Scanner _scanner;
@@ -105,7 +105,7 @@ public abstract class ScanningAppProvider extends ContainerLifeCycle implements 
         return _appMap;
     }
 
-    /**
+    /**    <p>被Scanner.DiscreteListener调用创建新的App对象</p>
      * Called by the Scanner.DiscreteListener to create a new App object.
      * Isolated in a method so that it is possible to override the default App
      * object for specialized implementations of the AppProvider.
@@ -167,16 +167,16 @@ public abstract class ScanningAppProvider extends ContainerLifeCycle implements 
     {
         return _scanner.exists(path);
     }
-
+    /**发现文件,创建新的应用*/
     protected void fileAdded(String filename) throws Exception
     {
         if (LOG.isDebugEnabled())
             LOG.debug("added {}", filename);
-        App app = ScanningAppProvider.this.createApp(filename);
+        App app = ScanningAppProvider.this.createApp(filename);//
         if (app != null)
         {
             _appMap.put(filename, app);
-            _deploymentManager.addApp(app);
+            _deploymentManager.addApp(app);//添加应用,发布
         }
     }
 
@@ -270,7 +270,7 @@ public abstract class ScanningAppProvider extends ContainerLifeCycle implements 
         _scanner.addListener(listener);
     }
 
-    /**
+    /**    <p>定时扫描的目录</p>
      * @param dir Directory to scan for context descriptors or war files
      */
     public void setMonitoredDirName(String dir)

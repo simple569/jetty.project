@@ -21,7 +21,7 @@ package org.eclipse.jetty.start.config;
 import java.io.IOException;
 import java.nio.file.Path;
 
-/**
+/**    <p>${jetty.base} 中特定的 ConfigSource</p>
  * ${jetty.base} specific ConfigSource
  */
 public class JettyBaseConfigSource extends DirConfigSource

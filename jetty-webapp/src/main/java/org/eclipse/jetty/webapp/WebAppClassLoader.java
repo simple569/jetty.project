@@ -193,7 +193,7 @@ public class WebAppClassLoader extends URLClassLoader implements ClassVisibility
         }
 
         if (context.getExtraClasspath() != null)
-            addClassPath(context.getExtraClasspath());
+            addClassPath(context.getExtraClasspath());//
     }
 
     /**

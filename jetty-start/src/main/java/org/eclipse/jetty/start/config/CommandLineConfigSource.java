@@ -39,7 +39,7 @@ import org.eclipse.jetty.start.Utils;
  */
 public class CommandLineConfigSource implements ConfigSource
 {
-    public static final String ORIGIN_INTERNAL_FALLBACK = "<internal-fallback>";
+    public static final String ORIGIN_INTERNAL_FALLBACK = "<internal-fallback>";   //内部向后兼容
     public static final String ORIGIN_CMD_LINE = "<command-line>";
     public static final String ORIGIN_SYSTEM_PROPERTY = "<system-property>";
 
@@ -55,7 +55,7 @@ public class CommandLineConfigSource implements ConfigSource
         for (String arg : rawargs)
         {
             this.args.addArg(arg, ORIGIN_CMD_LINE);
-            this.props.addPossibleProperty(arg, ORIGIN_CMD_LINE);
+            this.props.addPossibleProperty(arg, ORIGIN_CMD_LINE);//key=value设置到props  —Dkey=value同时设置到System.getProperty()
         }
 
         // Setup ${jetty.base} and ${jetty.home}
@@ -85,7 +85,7 @@ public class CommandLineConfigSource implements ConfigSource
         }
 
         // Lastly, fall back to base == ${user.dir}
-        Path base = FS.toPath(this.props.getString("user.dir", "."));
+        Path base = FS.toPath(this.props.getString("user.dir", "."));//设置为当前工作目录
         setProperty(BaseHome.JETTY_BASE, base.toString(), ORIGIN_INTERNAL_FALLBACK);
         return base;
     }
@@ -111,7 +111,7 @@ public class CommandLineConfigSource implements ConfigSource
         // based on lookup for the Main class (from jetty's start.jar)
         String classRef = "org/eclipse/jetty/start/Main.class";
         URL jarfile = this.getClass().getClassLoader().getResource(classRef);
-        if (jarfile != null)
+        if (jarfile != null)//设置为Main.class jar包所在的路径的父路径
         {
             Matcher m = Pattern.compile("jar:(file:.*)!/" + classRef).matcher(jarfile.toString());
             if (m.matches())

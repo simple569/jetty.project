@@ -47,11 +47,11 @@ import org.eclipse.jetty.util.annotation.Name;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.util.thread.Scheduler;
 
-/**
+/**    <p>该Connector实现是jetty server用于TCP/IP的主连接器,对于使用不同的ConnectionFactory,可以接受HTTP,HTTP/2 and WebSocket</p>
  * This {@link Connector} implementation is the primary connector for the
  * Jetty server over TCP/IP.  By the use of various {@link ConnectionFactory} instances it is able
  * to accept connections for HTTP, HTTP/2 and WebSocket, either directly or over SSL.
- * <p>
+ * <p>该connector是基于NIO的完全异步,会使用传给Server的Executor和Scheduler 服务</p><p>
  * The connector is a fully asynchronous NIO based implementation that by default will
  * use all the commons services (eg {@link Executor}, {@link Scheduler})  of the
  * passed {@link Server} instance, but all services may also be constructor injected

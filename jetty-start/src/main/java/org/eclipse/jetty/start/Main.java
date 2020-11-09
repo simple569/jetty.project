@@ -206,7 +206,7 @@ public class Main
 
         StartLog.debug("%s - %s", invokedClass, invokedClass.getPackage().getImplementationVersion());
 
-        CommandLineBuilder cmd = args.getMainArgs(false);
+        CommandLineBuilder cmd = args.getMainArgs(false);//转成被调用者的参数
         String[] argArray = cmd.getArgs().toArray(new String[0]);
         StartLog.debug("Command Line Args: %s", cmd.toString());
 

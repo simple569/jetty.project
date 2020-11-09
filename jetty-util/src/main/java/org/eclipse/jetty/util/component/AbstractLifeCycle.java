@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractLifeCycle implements LifeCycle
 {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractLifeCycle.class);
-
+    /**组建生命周期状态*/
     enum State
     {
         STOPPED,

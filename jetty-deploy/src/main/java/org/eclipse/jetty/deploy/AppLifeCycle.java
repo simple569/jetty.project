@@ -42,13 +42,13 @@ public class AppLifeCycle extends Graph
 {
     private static final Logger LOG = LoggerFactory.getLogger(AppLifeCycle.class);
 
-    private static final String ALL_NODES = "*";
+    private static final String ALL_NODES = "*";//绑定所有声明周期
 
     public static interface Binding
     {
         /**
          * Get a list of targets that this implementation should bind to.
-         *
+         *    *表示绑定到所有周期
          * @return the array of String node names to bind to. (use <code>"*"</code> to bind to all known node names)
          */
         String[] getBindingTargets();
@@ -72,9 +72,9 @@ public class AppLifeCycle extends Graph
     public static final String STOPPING = "stopping";
     public static final String UNDEPLOYING = "undeploying";
     public static final String FAILED = "failed";
-
+    /**每个声明周期绑定的处理器,每个目标节点绑定的处理器*/
     private Map<String, List<Binding>> lifecyclebindings = new HashMap<String, List<Binding>>();
-
+    /**生命周期图*/
     public AppLifeCycle()
     {
         // Define Default Graph
@@ -170,7 +170,7 @@ public class AppLifeCycle extends Graph
         }
 
         // Special 'all nodes' binding
-        bindings = lifecyclebindings.get(ALL_NODES);
+        bindings = lifecyclebindings.get(ALL_NODES);//
         if (bindings != null)
         {
             boundset.addAll(bindings);

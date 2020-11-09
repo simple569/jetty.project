@@ -88,7 +88,7 @@ public class DeploymentManager extends ContainerLifeCycle
          */
         private App app;
 
-        /**
+        /**    <p>当前应用的声明周期状态</p>
          * The lifecycle node location of this App
          */
         private Node lifecyleNode;
@@ -131,9 +131,9 @@ public class DeploymentManager extends ContainerLifeCycle
     private AttributesMap _contextAttributes = new AttributesMap();
     private ContextHandlerCollection _contexts;
     private boolean _useStandardBindings = true;
-    private String _defaultLifeCycleGoal = AppLifeCycle.STARTED;
+    private String _defaultLifeCycleGoal = AppLifeCycle.STARTED;//每个APP应用的默认声明周期
 
-    /**
+    /**    <p>接收待处理的app</p>
      * Receive an app for processing.
      *
      * Most commonly used by the various {@link AppProvider} implementations.
@@ -234,10 +234,10 @@ public class DeploymentManager extends ContainerLifeCycle
         if (getContexts() == null)
             throw new IllegalStateException("No Contexts");
 
-        if (_useStandardBindings)
+        if (_useStandardBindings)//使用标准生命周期绑定
         {
             LOG.debug("DeploymentManager using standard bindings");
-            addLifeCycleBinding(new StandardDeployer());
+            addLifeCycleBinding(new StandardDeployer());//
             addLifeCycleBinding(new StandardStarter());
             addLifeCycleBinding(new StandardStopper());
             addLifeCycleBinding(new StandardUndeployer());
@@ -495,7 +495,7 @@ public class DeploymentManager extends ContainerLifeCycle
             throw new IllegalStateException("Node not present in Deployment Manager: " + nodeName);
         }
         // Compute lifecycle steps
-        Path path = _lifecycle.getPath(appentry.lifecyleNode, destinationNode);
+        Path path = _lifecycle.getPath(appentry.lifecyleNode, destinationNode);//计算当前节点到目标节点的路径
         if (path.isEmpty())
         {
             // nothing to do. already there.

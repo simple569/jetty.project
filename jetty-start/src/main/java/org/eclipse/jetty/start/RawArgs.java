@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jetty.start.RawArgs.Entry;
-
+/**未处理的参数 A=B这种格式*/
 public class RawArgs implements Iterable<Entry>
 {
     public class Entry

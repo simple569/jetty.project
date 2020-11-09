@@ -48,7 +48,7 @@ public interface Connection extends Closeable
      */
     public void removeEventListener(EventListener listener);
 
-    /**
+    /**    <p>connection被打开后回调方法,先open后回调该方法,参见createEndPoint</p>
      * <p>Callback method invoked when this connection is opened.</p>
      * <p>Creators of the connection implementation are responsible for calling this method.</p>
      */

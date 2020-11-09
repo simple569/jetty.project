@@ -49,16 +49,16 @@ public class MetaData
     protected WebDescriptor _webDefaultsRoot;
     protected WebDescriptor _webXmlRoot;
     protected final List<WebDescriptor> _webOverrideRoots = new ArrayList<>();
-    protected boolean _metaDataComplete;
+    protected boolean _metaDataComplete;//元数据是否已经完整
     protected final List<DescriptorProcessor> _descriptorProcessors = new ArrayList<>();
-    protected final List<FragmentDescriptor> _webFragmentRoots = new ArrayList<>();
+    protected final List<FragmentDescriptor> _webFragmentRoots = new ArrayList<>();//所有fragment
     protected final Map<String, FragmentDescriptor> _webFragmentNameMap = new HashMap<>();
-    protected final Map<Resource, FragmentDescriptor> _webFragmentResourceMap = new HashMap<>();
+    protected final Map<Resource, FragmentDescriptor> _webFragmentResourceMap = new HashMap<>();//jar包 和 fragment resource的映射
     protected final Map<Resource, List<DiscoveredAnnotation>> _annotations = new HashMap<>();
-    protected final List<Resource> _webInfClasses = new ArrayList<>();
-    protected final List<Resource> _webInfJars = new ArrayList<>();
+    protected final List<Resource> _webInfClasses = new ArrayList<>();//WEB-INF/Class目录
+    protected final List<Resource> _webInfJars = new ArrayList<>();// WEB-INF/lib/  下的所有jar
     protected final List<Resource> _orderedContainerResources = new ArrayList<>();
-    protected final List<Resource> _orderedWebInfResources = new ArrayList<>();
+    protected final List<Resource> _orderedWebInfResources = new ArrayList<>();//对_webInfJars排序的结果
     protected Ordering _ordering;//can be set to RelativeOrdering by web-default.xml, web.xml, web-override.xml
     protected boolean _allowDuplicateFragmentNames = false;
     protected boolean _validateXml = false;
@@ -291,7 +291,7 @@ public class MetaData
         _webOverrideRoots.add(descriptor);
     }
 
-    /**
+    /**   <p>添加web-fragment.xml,和该xml包含的jar</p>
      * Add a web-fragment.xml, and the jar it is contained in.
      *
      * @param jarResource the jar of the fragment
@@ -310,7 +310,7 @@ public class MetaData
         //Metadata-complete is not set, or there is no web.xml
         _webFragmentResourceMap.put(jarResource, descriptor);
         _webFragmentRoots.add(descriptor);
-        descriptor.parse(WebDescriptor.getParser(isValidateXml()));
+        descriptor.parse(WebDescriptor.getParser(isValidateXml()));//解析xml
 
         if (descriptor.getName() != null)
         {
@@ -324,7 +324,7 @@ public class MetaData
         }
 
         //only accept an ordering from the fragment if there is no ordering already established
-        if (_ordering == null && descriptor.isOrdered())
+        if (_ordering == null && descriptor.isOrdered())//如果该fragment有序
         {
             setOrdering(new RelativeOrdering(this));
             return;
@@ -350,7 +350,7 @@ public class MetaData
         }
     }
 
-    /**
+    /**   <p>添加在类上发现的注解</p>
      * Add an annotation that has been discovered on a class, method or field within a resource
      * eg a jar or dir. The annotation may also have no associated resource, or that resource
      * may be a system or container resource.
@@ -445,7 +445,7 @@ public class MetaData
             _orderedWebInfResources.addAll(getOrdering().order(_webInfJars));
     }
 
-    /**
+    /**   <p>解析source的所有 servlet/filter/listener 等元数据</p>
      * Resolve all servlet/filter/listener metadata from all sources: descriptors and annotations.
      *
      * @param context the context to resolve servlets / filters / listeners metadata from

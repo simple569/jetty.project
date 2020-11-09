@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.jetty.start.Props.Prop;
 
-/**
+/**    <p>表示module的元数据</p>
  * Represents a Module metadata, as defined in Jetty.
  *
  * <p>A module consists of:
@@ -68,7 +68,7 @@ public class Module implements Comparable<Module>
      */
     private final Path _path;
 
-    /**
+    /**   <p>module的名字,*.mod的前缀</p>
      * The name of the module
      */
     private final String _name;
@@ -98,7 +98,7 @@ public class Module implements Comparable<Module>
      */
     private final List<String> _iniTemplate = new ArrayList<>();
 
-    /**
+    /**    [default/ini] 节
      * List of default config
      */
     private final List<String> _defaultConfig = new ArrayList<>();
@@ -178,14 +178,14 @@ public class Module implements Comparable<Module>
                 break;
             }
         }
-        if (m < 0)
+        if (m < 0)//必须在modules 目录中
             throw new IllegalArgumentException("Module not contained within modules directory: " + basehome.toShortForm(path));
         String n = path.getName(m + 1).toString();
         for (int i = m + 2; i < path.getNameCount(); i++)
         {
             n = n + "/" + path.getName(i).toString();
         }
-        Matcher matcher = MOD_NAME.matcher(n);
+        Matcher matcher = MOD_NAME.matcher(n);//根据文件名获取mod name
         if (!matcher.matches())
             throw new IllegalArgumentException("Module filename must have .mod extension: " + basehome.toShortForm(path));
         _name = matcher.group(1);
@@ -341,7 +341,7 @@ public class Module implements Comparable<Module>
         }
         return true;
     }
-
+    /**读取模块.mod文件*/
     public void process(BaseHome basehome) throws FileNotFoundException, IOException
     {
         Pattern section = Pattern.compile("\\s*\\[([^]]*)\\]\\s*");
@@ -360,7 +360,7 @@ public class Module implements Comparable<Module>
             {
                 line = line.trim();
 
-                Matcher sectionMatcher = section.matcher(line);
+                Matcher sectionMatcher = section.matcher(line);//区块
 
                 if (sectionMatcher.matches())
                 {

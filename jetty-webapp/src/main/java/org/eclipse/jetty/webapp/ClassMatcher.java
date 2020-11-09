@@ -76,7 +76,7 @@ public class ClassMatcher extends AbstractSet<String>
     {
         private final String _pattern;
         private final String _name;
-        private final boolean _inclusive;
+        private final boolean _inclusive;//包括
 
         protected Entry(String name, boolean inclusive)
         {
@@ -682,7 +682,7 @@ public class ClassMatcher extends AbstractSet<String>
         return toArray(new String[_entries.size()]);
     }
 
-    /**
+    /**    <p>包括数组列表</p>
      * @return array of inclusive classpath patterns
      */
     public String[] getInclusions()

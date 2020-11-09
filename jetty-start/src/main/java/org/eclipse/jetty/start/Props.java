@@ -106,7 +106,7 @@ public final class Props implements Iterable<Prop>
         }
         return l;
     }
-
+    /**key对应的Prop*/
     private Map<String, Prop> props = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private List<String> sysPropTracking = new ArrayList<>();
 

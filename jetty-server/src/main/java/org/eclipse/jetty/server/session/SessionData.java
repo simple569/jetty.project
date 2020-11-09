@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * SessionData
- *
+ *    <p>和session关联的data,Session对象和SessionData 1:1对应</p>
  * The data associated with a session. A Session object has a 1:1 relationship
  * with a SessionData object. The behaviour of sessions is implemented in the
  * Session object (eg calling listeners, keeping timers etc). A Session's
@@ -54,7 +54,7 @@ public class SessionData implements Serializable
     protected long _cookieSet;
     protected long _accessed;         // the time of the last access
     protected long _lastAccessed;     // the time of the last access excluding this one
-    protected long _maxInactiveMs;
+    protected long _maxInactiveMs;//最长idle时间
     protected Map<String, Object> _attributes;
     protected boolean _dirty;
     protected long _lastSaved; //time in msec since last save

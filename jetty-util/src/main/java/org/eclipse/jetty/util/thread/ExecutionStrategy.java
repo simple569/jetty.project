@@ -47,7 +47,7 @@ public interface ExecutionStrategy
      */
     public void produce();
 
-    /**
+    /**   <p>生产者,生成Runnable task运行,ExecutionStrategy会重复调用producer直到produce方法返回null</p>
      * <p>A producer of {@link Runnable} tasks to run.</p>
      * <p>The {@link ExecutionStrategy} will repeatedly invoke {@link #produce()} until
      * the producer returns null, indicating that it has nothing more to produce.</p>

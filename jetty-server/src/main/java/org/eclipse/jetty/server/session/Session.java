@@ -98,7 +98,7 @@ public class Session implements SessionHandler.SessionIf
     protected boolean _resident = false;
     protected final SessionInactivityTimer _sessionInactivityTimer;
 
-    /**
+    /**    <p>每个Session有一个关联的定时器,在超过idle时间后触发</p>
      * SessionInactivityTimer
      *
      * Each Session has a timer associated with it that fires whenever it has
@@ -250,7 +250,7 @@ public class Session implements SessionHandler.SessionIf
             long lastAccessed = _sessionData.getAccessed();
             _sessionData.setAccessed(time);
             _sessionData.setLastAccessed(lastAccessed);
-            _sessionData.calcAndSetExpiry(time);
+            _sessionData.calcAndSetExpiry(time);//设置session的过期时间
             if (isExpiredAt(time))
             {
                 invalidate();

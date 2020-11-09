@@ -44,7 +44,7 @@ import org.eclipse.jetty.util.component.DumpableCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**   <p>Configuration实例的有序列表</p>
  * An ordered list of {@link Configuration} instances.
  * <p>
  * The ordering of Configurations will initially be the order in which they
@@ -67,7 +67,7 @@ public class Configurations extends AbstractList<Configuration> implements Dumpa
 {
     private static final Logger LOG = LoggerFactory.getLogger(Configurations.class);
 
-    private static final List<Configuration> __known = new ArrayList<>();
+    private static final List<Configuration> __known = new ArrayList<>();//只加载一次
     private static final List<Configuration> __unavailable = new ArrayList<>();
     private static final Set<String> __knownByClassName = new HashSet<>();
 
@@ -206,7 +206,7 @@ public class Configurations extends AbstractList<Configuration> implements Dumpa
             }
         }
 
-        if (configurations == null)
+        if (configurations == null)//使用默认
         {
             configurations = new Configurations(Configurations.getKnown().stream()
                 .filter(c -> c.isEnabledByDefault())

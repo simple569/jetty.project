@@ -187,11 +187,11 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
     private final ClassMatcher _serverClasses = new ClassMatcher(__dftServerClasses);
 
     private Configurations _configurations;
-    private String _defaultsDescriptor = WEB_DEFAULTS_XML;
+    private String _defaultsDescriptor = WEB_DEFAULTS_XML;//默认web.xml(webdefault.xml)
     private String _descriptor = null;
     private final List<String> _overrideDescriptors = new ArrayList<>();
     private boolean _distributable = false;
-    private boolean _extractWAR = true;
+    private boolean _extractWAR = true;//如果已经提取了war包,为true
     private boolean _copyDir = false;
     private boolean _copyWebInf = false;
     private boolean _logUrlOnStart = false;
@@ -204,7 +204,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
     private boolean _persistTmpDir = false;
 
     private String _war;
-    private String _extraClasspath;
+    private String _extraClasspath;//WebAppClassLoader 会添加这个外部jar
     private Throwable _unavailableException;
 
     private Map<String, String> _resourceAliases;
@@ -483,7 +483,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
 
         // Setup Configuration classes for this webapp!
         loadConfigurations();
-        _configurations.sort();
+        _configurations.sort();//排序confuguration
         for (Configuration configuration : _configurations)
         {
             _systemClasses.add(configuration.getSystemClasses().getPatterns());
@@ -533,7 +533,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
             Boolean validate = (Boolean)getAttribute(MetaData.VALIDATE_XML);
             _metadata.setValidateXml((validate != null && validate));
             preConfigure();
-            super.doStart();
+            super.doStart();//
             postConfigure();
 
             if (isLogUrlOnStart())
@@ -794,7 +794,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
         }
     }
 
-    /**
+    /**    <p></p>
      * @return Returns the war as a file or URL string (Resource).
      * The war may be different to the @link {@link #getResourceBase()}
      * if the war has been expanded and/or copied.
@@ -949,7 +949,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
         );
     }
 
-    /**
+    /** <p>webappprovider会设置该属性</p>
      * @param configurations The configuration class names.  If setConfigurations is not called
      * these classes are used to create a configurations array.
      */
@@ -1232,7 +1232,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
         return _extraClasspath;
     }
 
-    /**
+    /**   <p>逗号或者分号分割的文件名或者URL指向(目录或者jar文件,目录必须/结尾)</p>
      * @param extraClasspath Comma or semicolon separated path of filenames or URLs
      * pointing to directories or jar files. Directories should end
      * with '/'.
@@ -1278,7 +1278,7 @@ public class WebAppContext extends ServletContextHandler implements WebAppClassL
     }
 
     @Override
-    protected void startContext()
+    protected void startContext()//dostart 过程中调用该方法启动context
         throws Exception
     {
         if (configure())

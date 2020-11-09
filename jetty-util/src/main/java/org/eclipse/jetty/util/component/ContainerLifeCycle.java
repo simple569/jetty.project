@@ -510,7 +510,7 @@ public class ContainerLifeCycle extends AbstractLifeCycle implements Container, 
         return false;
     }
 
-    /**
+    /**    <p>bean 和当前容器聚合,started/stopped/destroyed生命周期方法和当前容器聚合</p>
      * Manages a bean already contained by this aggregate, so that it is started/stopped/destroyed with this
      * aggregate.
      *
@@ -754,7 +754,7 @@ public class ContainerLifeCycle extends AbstractLifeCycle implements Container, 
 
     enum Managed
     {
-        POJO, MANAGED, UNMANAGED, AUTO
+        POJO, MANAGED, /**容器不管理该bean的生命周期*/UNMANAGED, AUTO
     }
 
     private static class Bean

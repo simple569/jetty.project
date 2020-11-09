@@ -41,6 +41,6 @@ public class HandshakerSelector implements Handshaker
     {
         // Try HTTP/1.1 WS upgrade, if this fails try an HTTP/2 WS upgrade if no response was committed.
         return rfc6455.upgradeRequest(negotiator, request, response, defaultCustomizer) ||
-            !response.isCommitted() && rfc8441.upgradeRequest(negotiator, request, response, defaultCustomizer);
+            !response.isCommitted() && rfc8441.upgradeRequest(negotiator, request, response, defaultCustomizer);//协议升级
     }
 }

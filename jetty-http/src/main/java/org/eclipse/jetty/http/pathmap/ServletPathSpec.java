@@ -53,9 +53,9 @@ public class ServletPathSpec extends PathSpec
     }
 
     /**
-     * @param pathSpec the path spec
-     * @param path the path
-     * @param noDefault true to not handle the default path "/" special, false to allow matcher rules to run
+     * @param pathSpec the path spec   路径模式
+     * @param path the path   待匹配的路径
+     * @param noDefault true to not handle the default path "/" special, false to allow matcher rules to run  true不特殊处理 / filter 为true,servlet为false
      * @return true if match.
      */
     public static boolean match(String pathSpec, String path, boolean noDefault)
@@ -66,7 +66,7 @@ public class ServletPathSpec extends PathSpec
         char c = pathSpec.charAt(0);
         if (c == '/')
         {
-            if (!noDefault && pathSpec.length() == 1 || pathSpec.equals(path))
+            if (!noDefault && pathSpec.length() == 1 || pathSpec.equals(path))  //  !noDefault && pathSpec.length() == 1 和 路径相同(noDefault = true, / 匹配所有path)
                 return true;
 
             if (isPathWildcardMatch(pathSpec, path))
@@ -77,7 +77,7 @@ public class ServletPathSpec extends PathSpec
                 pathSpec, 1, pathSpec.length() - 1);
         return false;
     }
-
+    /** /* 结尾的情况   */
     private static boolean isPathWildcardMatch(String pathSpec, String path)
     {
         // For a spec of "/foo/*" match "/foo" , "/foo/..." but not "/foobar"

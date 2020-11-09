@@ -38,13 +38,13 @@ import org.eclipse.jetty.start.config.DirConfigSource;
 import org.eclipse.jetty.start.config.JettyBaseConfigSource;
 import org.eclipse.jetty.start.config.JettyHomeConfigSource;
 
-/**
+/**   <p>访问${jetty.home}和${jetty.base}文件</p>
  * File access for <code>${jetty.home}</code>, <code>${jetty.base}</code>, directories.
  * <p>
  * By default, both <code>${jetty.home}</code> and <code>${jetty.base}</code> are the same directory, but they can point at different directories.
- * <p>
+ * <p>${jetty.home} jetty二进制程序和默认配置所在</p><p>
  * The <code>${jetty.home}</code> directory is where the main Jetty binaries and default configuration is housed.
- * <p>
+ * <p>${jetty.base}目录用来获取特定的配置和web应用</p><p>
  * The <code>${jetty.base}</code> directory is where the execution specific configuration and webapps are obtained from.
  */
 public class BaseHome

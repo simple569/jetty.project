@@ -72,7 +72,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
     private static final Logger LOG = LoggerFactory.getLogger(AnnotationConfiguration.class);
 
     public static final String SERVLET_CONTAINER_INITIALIZER_EXCLUSION_PATTERN = "org.eclipse.jetty.containerInitializerExclusionPattern";
-    public static final String SERVLET_CONTAINER_INITIALIZER_ORDER = "org.eclipse.jetty.containerInitializerOrder";
+    public static final String SERVLET_CONTAINER_INITIALIZER_ORDER = "org.eclipse.jetty.containerInitializerOrder";//sci初始化的顺序
     public static final String CLASS_INHERITANCE_MAP = "org.eclipse.jetty.classInheritanceMap";
     public static final String CONTAINER_INITIALIZERS = "org.eclipse.jetty.containerInitializers";
     public static final String CONTAINER_INITIALIZER_STARTER = "org.eclipse.jetty.containerInitializerStarter";
@@ -91,7 +91,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
     protected CounterStatistic _containerPathStats;
     protected CounterStatistic _webInfLibStats;
     protected CounterStatistic _webInfClassesStats;
-    protected Pattern _sciExcludePattern;
+    protected Pattern _sciExcludePattern;//sci排除的正则表达式
     protected List<ServletContainerInitializer> _initializers;
 
     public AnnotationConfiguration()
@@ -605,7 +605,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
                         _classInheritanceHandler = new ClassInheritanceHandler(map);
                     }
 
-                    for (Class<?> c : classes)
+                    for (Class<?> c : classes)//如果关注的是注解
                     {
                         //The value of one of the HandlesTypes classes is actually an Annotation itself so
                         //register a handler for it
@@ -625,7 +625,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
                 }
             }
             else
-            {
+            {//不需要初始化handle class
                 initializer = new ContainerInitializer(service, null);
                 if (LOG.isDebugEnabled())
                     LOG.debug("No HandlesTypes annotation on initializer " + service.getClass());
@@ -679,7 +679,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
         }
 
         //A ServletContainerInitialier that came from WEB-INF/classes or equivalent cannot be excluded by an ordering
-        if (isFromWebInfClasses(context, sciResource))
+        if (isFromWebInfClasses(context, sciResource))// WEB-INF/classes 中的sci不能排除ordering
         {
             if (LOG.isDebugEnabled())
                 LOG.debug("!Excluded {} from web-inf/classes", sci);
@@ -716,7 +716,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
         //Check if it is excluded by an ordering
         URI loadingJarURI = sciResource.getURI();
         boolean included = false;
-        for (Resource r : orderedJars)
+        for (Resource r : orderedJars)//servlet标准 web fragment JAR 包的 ServletContainerInitializer 服务的jar被排除于一个 absolute ordering 必须被忽略
         {
             included = r.getURI().equals(loadingJarURI);
             if (included)
@@ -942,7 +942,7 @@ public class AnnotationConfiguration extends AbstractConfiguration
         }
 
         //final pass over the non-excluded SCIs if the webapp version is < 3, in which case 
-        //we will only call SCIs that are on the server's classpath
+        //we will only call SCIs that are on the server's classpath  如果webapp版本<3,只会调用在server classpath的SCI
         if (context.getServletContext().getEffectiveMajorVersion() < 3 && !context.isConfigurationDiscovered())
         {
             ListIterator<ServletContainerInitializer> it = nonExcludedInitializers.listIterator();

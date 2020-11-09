@@ -195,7 +195,7 @@ public class ContextHandler extends ScopedHandler implements Attributes, Gracefu
     private String _contextPathEncoded = "/";
     private String _displayName;
     private long _stopTimeout;
-    private Resource _baseResource;
+    private Resource _baseResource;//查找所有静态资源
     private MimeTypes _mimeTypes;
     private Map<String, String> _localeEncodingMap;
     private String[] _welcomeFiles;
@@ -794,7 +794,7 @@ public class ContextHandler extends ScopedHandler implements Attributes, Gracefu
             enterScope(null, getState());
 
             // defers the calling of super.doStart()
-            startContext();
+            startContext();//启动context
             
             contextInitialized();
 
@@ -2014,7 +2014,7 @@ public class ContextHandler extends ScopedHandler implements Attributes, Gracefu
         getAliasChecks().clear();
     }
 
-    /**
+    /**  ServletContext的部分实现
      * Context.
      * <p>
      * A partial implementation of {@link javax.servlet.ServletContext}. A complete implementation is provided by the
